@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\GUI">
+      <UniqueIdentifier>{deb7ac18-374e-44c5-9787-dace6b192027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Data">
+      <UniqueIdentifier>{839f4081-6cba-426d-8442-b5e97b9aab75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene">
+      <UniqueIdentifier>{f0b6d625-2047-4bae-97be-a7460eab2c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene\listscene">
+      <UniqueIdentifier>{68f3a09c-1d4e-4f14-a26c-e402ff1030a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene\listscene\One">
+      <UniqueIdentifier>{a83acee0-6f30-42c0-bd9c-3cdebf04981f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene\listscene\Two">
+      <UniqueIdentifier>{a31c3836-33ac-4408-87f4-5d7325643fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene\listscene\Three">
+      <UniqueIdentifier>{c37f55c1-5833-4169-ac53-4bd028d8c993}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="listscene.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="musicbase.h">
+      <Filter>头文件\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="music.h">
+      <Filter>头文件\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>头文件\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scenemanager.h">
+      <Filter>头文件\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="playscene.h">
+      <Filter>头文件\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="editscene.h">
+      <Filter>头文件\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="musicidlist.h">
+      <Filter>头文件\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="addmusicbutton.h">
+      <Filter>头文件\Scene\listscene\One</Filter>
+    </ClInclude>
+    <ClInclude Include="togglecurrentplaylist.h">
+      <Filter>头文件\Scene\listscene\One</Filter>
+    </ClInclude>
+    <ClInclude Include="currentplaylist.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="switcheditlist.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="progressbar.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="playlistmanager.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="playbutton.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="nextbutton.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="prebutton.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="editlist.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="addtobutton.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="addlistbutton.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="selectwindow.h">
+      <Filter>头文件\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="editplaylist.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="musicinfo.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="lyrics.h">
+      <Filter>头文件\Scene\listscene\Three</Filter>
+    </ClInclude>
+    <ClInclude Include="volumebar.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
