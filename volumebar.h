@@ -17,31 +17,31 @@ public:
 		line(posx+iconlength+gap,posy+height/2,posx+width,posy+height/2);
 		setlinecolor(WHITE);
 		line(posx+iconlength+gap,posy+height/2,posx+iconlength+gap+current*(width-gap-iconlength)/total,posy+height/2);
-		
-
 	}
 	void process_drag(ExMessage& msg){
+		int changevolume=(mousex-posx-iconlength-gap)*total/(width-iconlength-gap);
+		if(msg.message==WM_LBUTTONUP){
+			if(isdrag){
+				isdrag=false;
+				setvolume(changevolume);
+			}
+		}else
+			if(msg.message==WM_MOUSEMOVE){
+				if(isdrag&&posx+iconlength+gap<=mousex&&mousex<=posx+width)
+					setvolume(changevolume);
+			}
 		if(posx+iconlength+gap<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
-			int changevolume=(mousex-posx-iconlength-gap)*total/(width-iconlength-gap);
 			if(msg.message==WM_LBUTTONDOWN){
 				if(!isdrag)
 					setvolume(changevolume);
 				isdrag=true;
-			}else
-				if(msg.message==WM_MOUSEMOVE){
-					if(isdrag)
-						setvolume(changevolume);
-				}else
-					if(msg.message==WM_LBUTTONUP){
-						isdrag=false;
-						setvolume(changevolume);
-					}
+			}
 		}
 	}
 	void setvolume(int v){
 		char a[100];
 		current=v;
-		sprintf_s(a,"setaudio music volume to %d",v);//把此时的音量以及操作字符串赋给a
+		sprintf_s(a,"setaudio music volume to %d",v);
 		mciSendString(a,0,0,0);
 	}
 	int getvolume(){
@@ -50,11 +50,11 @@ public:
 		int b=atoi(a);
 		return b%1000+200;
 	}
+	int current=500;
 private:
 	int posx,posy;
 	int width,height;
 	int iconlength;
-	int current=500;
 	int total=1000;
 	int gap;
 	bool isdrag=false;
