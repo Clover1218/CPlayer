@@ -19,8 +19,6 @@
 #include"musicbase.h"
 #include"scene.h"
 #include"listscene.h"
-#include"playscene.h"
-#include"editscene.h"
 #include"playbutton.h"
 #include"currentplaylist.h"
 #include"nextbutton.h"
@@ -59,8 +57,6 @@ IMAGE down_img;
 int mousex,mousey;
 musicbase database;
 Scene* list_scene=nullptr;
-Scene* player_scene=nullptr;
-Scene* edit_scene=nullptr;
 scenemanager scene_manager;
 currentplaylist* current_playlist;
 playlistmanager* playlist_manager;
@@ -125,7 +121,6 @@ int main(){
 	music_info=new musicinfo(250,400,200,50,30,play_button,current_playlist);
 	volume_bar=new volumebar(50,450,155,20,5,&volume_img);
 	list_scene=new listscene();
-	edit_scene=new editscene();
 	scene_manager.setbynumber(1);
 	while(true){
 		scene_manager.draw();

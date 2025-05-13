@@ -86,7 +86,7 @@ public:
 								return;
 							}
 							current_playlist->bindlist->data.push_back(bindlist->data[currentin]);
-							current_playlist->play_button->play(current_playlist->bindlist->data[current_playlist->bindlist->data.size()-1].id,current_playlist->bindlist->data.size()-1);
+							current_playlist->play_button->play(current_playlist->bindlist->data[current_playlist->bindlist->data.size()-1].id,(int)current_playlist->bindlist->data.size()-1);
 						}else
 							if(posx+width-5*texth<=mousex&&mousex<=posx+width-texth*4&&posy<=mousey&&mousey<=posy+height){
 								//down

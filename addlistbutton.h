@@ -28,7 +28,6 @@ public:
 		drawAlpha(image,x,y);
 	}
 	void process_move(){
-
 	}
 	void process_click(){
 		if(checkin()){
@@ -38,10 +37,7 @@ public:
 			if(a[0]!='#'){
 				std::string pa=a;
 				playlist_manager->add(pa);
-
 			}
-
-			
 		}
 	}
 	musicidlist* bindlist=nullptr;

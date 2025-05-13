@@ -58,8 +58,6 @@ public:
 				traveldir(pa,bindlist);
 				database.print();
 			}
-
-			
 		}
 	}
 	musicidlist* bindlist=nullptr;

@@ -139,7 +139,6 @@
     <ClInclude Include="addtobutton.h" />
     <ClInclude Include="editlist.h" />
     <ClInclude Include="editplaylist.h" />
-    <ClInclude Include="editscene.h" />
     <ClInclude Include="lyrics.h" />
     <ClInclude Include="music.h" />
     <ClInclude Include="musicbase.h" />
@@ -149,7 +148,6 @@
     <ClInclude Include="nextbutton.h" />
     <ClInclude Include="playbutton.h" />
     <ClInclude Include="playlistmanager.h" />
-    <ClInclude Include="playscene.h" />
     <ClInclude Include="prebutton.h" />
     <ClInclude Include="progressbar.h" />
     <ClInclude Include="scene.h" />

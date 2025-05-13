@@ -57,6 +57,12 @@ public:
 		}
 	}	
 	void play(int id,int selectid){
+		if(selectid==-1){
+			mciSendString("close music",0,0,0);
+			playcurid=-1;
+			playcurrentselect=-1;
+			return;
+		}
 		char command[300];
 		const char* ps=database.base[id].path.c_str();
 		if(!(playcurid==id&&playcurrentselect==selectid)){

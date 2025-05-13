@@ -20,6 +20,13 @@ public:
 	}
 	void draw(){
 		if(!isshow) return;
+		if(bindlist->data.size()==0){
+			settextstyle(20,0,"Consolas");
+			outtextxy(posx,posy,"默认列表无音乐");
+			outtextxy(posx,posy+texth,"请点击进度条右侧的按钮添加音乐");
+			outtextxy(posx,posy+2*texth,"或点击左上角从歌单导入");
+			outtextxy(posx,posy+3*texth,"点击进度条上方的音乐名可以查看歌词");
+		}
 		settextstyle(20,0,"Consolas");
 		int inity=posy-viewy,i=0;
 		POINT tr[3];
@@ -62,7 +69,12 @@ public:
 		}
 	}
 	void del(int cur){
+		if(currentin<0||bindlist->data.size()<=0) return;
 		bindlist->data.erase(bindlist->data.begin()+cur);
+		if(bindlist->data.size()<=0){
+			play_button->play(-1,-1);
+			return;
+		}
 		if(cur==play_button->playcurrentselect){
 			if(cur>=bindlist->data.size()){
 				currentin=currentselect=cur=0;

@@ -2,7 +2,6 @@
 #include<graphics.h>
 #include"scene.h"
 extern Scene* list_scene;
-extern Scene* edit_scene;
 class scenemanager{
 public:
 	scenemanager(){
@@ -11,8 +10,6 @@ public:
 	void setbynumber(int cur){
 		if(cur==1)
 			current_scene=list_scene;
-		if(cur==2)
-			current_scene=edit_scene;
 	}
 	void setbyscene(Scene* cur){
 		current_scene=cur;

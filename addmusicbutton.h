@@ -32,7 +32,7 @@ public:
 		dx=img->getwidth();dy=img->getheight();
 		image=img;
 		bindlist=cl;
-		traveldir("E://ScatteredFile//music//¸èÇúÏÂÔØ//Music",bindlist);
+		//traveldir("E://ScatteredFile//music//¸èÇúÏÂÔØ//Music",bindlist);
 	}
 	bool checkin(){
 		if(x<=mousex&&mousex<=x+dx&&y<=mousey&&mousey<=y+dy){
