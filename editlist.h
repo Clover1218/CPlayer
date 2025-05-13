@@ -4,11 +4,14 @@
 #include"musicidlist.h"
 #include"util.h"
 #include"selectwindow.h"
+#include"utility"
 extern playlistmanager* playlist_manager;
 extern IMAGE add_img;
 extern IMAGE delete_img;
 extern IMAGE rename_img;
 extern IMAGE play_icon_img;
+extern IMAGE up_img;
+extern IMAGE down_img;
 extern currentplaylist* current_playlist;
 class editlist{
 public:
@@ -30,6 +33,8 @@ public:
 				putImageAlpha(posx+width-2*texth,inity,&add_img);
 				putImageAlpha(posx+width-3*texth,inity,&rename_img);
 				putImageAlpha(posx+width-4*texth,inity,&play_icon_img);
+				putImageAlpha(posx+width-5*texth,inity,&down_img);
+				putImageAlpha(posx+width-6*texth,inity,&up_img);
 			}
 			inity+=textheight(sn);
 			i++;
@@ -81,8 +86,17 @@ public:
 								return;
 							}
 							current_playlist->bindlist->data.push_back(bindlist->data[currentin]);
-							current_playlist->play_button->play(current_playlist->bindlist->data[current_playlist->bindlist->data.size()-1].id,current_playlist->bindlist->data.size()-1);
-						}
+							current_playlist->play_button->play(current_playlist->bindlist->data[current_playlist->bindlist->data.size()-1].id,(int)current_playlist->bindlist->data.size()-1);
+						}else
+							if(posx+width-5*texth<=mousex&&mousex<=posx+width-texth*4&&posy<=mousey&&mousey<=posy+height){
+								//down
+								int downid=(currentin+1)%(int)bindlist->data.size();
+								std::swap(bindlist->data[downid],bindlist->data[currentin]);
+							}else
+								if(posx+width-6*texth<=mousex&&mousex<=posx+width-texth*5&&posy<=mousey&&mousey<=posy+height){
+									int upid=(currentin-1+(int)bindlist->data.size())%(int)bindlist->data.size();
+									std::swap(bindlist->data[upid],bindlist->data[currentin]);
+								}
 					
 		}
 	}

@@ -13,25 +13,12 @@ static int stringtoint(int l,int r,std::string& s){
     return base;
 }
 static std::string utf8ToGbk(const std::string& utf8Str) {
-    // ½«UTF-8×ª»»Îª¿í×Ö·û£¨UTF-16£©
-    int wideLen = MultiByteToWideChar(CP_UTF8, 0, utf8Str.c_str(), -1, nullptr, 0);
-    if (wideLen == 0) {
-        throw std::runtime_error("UTF-8 ×ª¿í×Ö·ûÊ§°Ü¡£");
-    }
- 
+    int wideLen=MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,nullptr,0);
     std::wstring wideStr(wideLen, 0);
-    MultiByteToWideChar(CP_UTF8, 0, utf8Str.c_str(), -1, &wideStr[0], wideLen);
- 
-    // ½«¿í×Ö·û£¨UTF-16£©×ª»»ÎªGBK
-    int gbkLen = WideCharToMultiByte(CP_ACP, 0, wideStr.c_str(), -1, nullptr, 0, nullptr, nullptr);
-    if (gbkLen == 0) {
-        throw std::runtime_error("¿í×Ö·û×ªGBKÊ§°Ü¡£");
-    }
- 
+    MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,&wideStr[0],wideLen);
+    int gbkLen=WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,nullptr,0,nullptr,nullptr);
     std::string gbkStr(gbkLen, 0);
-    WideCharToMultiByte(CP_ACP, 0, wideStr.c_str(), -1, &gbkStr[0], gbkLen, nullptr, nullptr);
- 
-    // È¥³ýÄ©Î²µÄ¿Õ×Ö·û
+    WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,&gbkStr[0],gbkLen,nullptr,nullptr);
     gbkStr.pop_back();
     return gbkStr;
 }

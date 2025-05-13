@@ -1,9 +1,9 @@
 /*
 写在前面:
-当前版本v0.1
 该作业使用C++编写  
 是一个简易的本地音乐播放器
-功能不全 系统结构混乱 轻喷
+有基本的从本地导入音乐、歌单、播放、歌词等功能
+功能不全 系统结构混乱 有修改余地 产出BUG 轻喷
 注意事项
 1.因为用到了STL的filesystem库，所以需要C++17及以上才可运行
 2.图形库采用easyX
@@ -19,8 +19,6 @@
 #include"musicbase.h"
 #include"scene.h"
 #include"listscene.h"
-#include"playscene.h"
-#include"editscene.h"
 #include"playbutton.h"
 #include"currentplaylist.h"
 #include"nextbutton.h"
@@ -54,11 +52,11 @@ IMAGE rename_img;
 IMAGE mask_img;
 IMAGE volume_img;
 IMAGE play_icon_img;
+IMAGE up_img;
+IMAGE down_img;
 int mousex,mousey;
 musicbase database;
 Scene* list_scene=nullptr;
-Scene* player_scene=nullptr;
-Scene* edit_scene=nullptr;
 scenemanager scene_manager;
 currentplaylist* current_playlist;
 playlistmanager* playlist_manager;
@@ -94,6 +92,8 @@ void ImportImage(){
 	loadimage(&mask_img,"resource/mask.png",720,480);
 	loadimage(&volume_img,"resource/volume.png",20,20);
 	loadimage(&play_icon_img,"resource/play_icon.png",20,20);
+	loadimage(&up_img,"resource/up.png",20,20);
+	loadimage(&down_img,"resource/down.png",20,20);
 }
 int main(){
 	initgraph(720,480);
@@ -121,7 +121,6 @@ int main(){
 	music_info=new musicinfo(250,400,200,50,30,play_button,current_playlist);
 	volume_bar=new volumebar(50,450,155,20,5,&volume_img);
 	list_scene=new listscene();
-	edit_scene=new editscene();
 	scene_manager.setbynumber(1);
 	while(true){
 		scene_manager.draw();

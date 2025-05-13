@@ -5,9 +5,11 @@
 #include"util.h"
 #include"musicbase.h"
 #include"lyrics.h"
+#include"volumebar.h"
 extern int mousex;
 extern int mousey;
 extern musicbase database;
+extern volumebar* volume_bar;
 class playbutton{
 public:		
 	playbutton(int xx,int yy,IMAGE* playimg,IMAGE* pauseimg,lyrics* ls){
@@ -55,6 +57,12 @@ public:
 		}
 	}	
 	void play(int id,int selectid){
+		if(selectid==-1){
+			mciSendString("close music",0,0,0);
+			playcurid=-1;
+			playcurrentselect=-1;
+			return;
+		}
 		char command[300];
 		const char* ps=database.base[id].path.c_str();
 		if(!(playcurid==id&&playcurrentselect==selectid)){
@@ -67,6 +75,7 @@ public:
 				isplaying=true;
 				playcurid=id;
 				playcurrentselect=selectid;
+				volume_bar->setvolume(volume_bar->current);
 				mciSendString("play music",0,0,0);
 				lyrics_show->getlyrics(id);
 			}

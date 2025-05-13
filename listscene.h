@@ -40,21 +40,6 @@ extern IMAGE background_img;
 class listscene:public Scene{
 public:
 	listscene(){
-		//next_button_ptr=next_button;
-		//play_button_ptr=play_button;
-		//pre_button_ptr=pre_button;
-		//add_music_button_ptr=add_music_button;
-		//current_playlist_ptr=current_playlist;
-		//progress_bar_ptr=progress_bar;
-		//toggle_list_ptr=toggle_list;
-		//switch_edit_list_ptr=switch_edit_list;
-		//playlist_manager_ptr=playlist_manager;
-		//edit_list_ptr=edit_list;
-		//add_to_button_ptr=add_to_button;
-		//add_list_button_ptr=add_list_button;
-		//edit_play_list_ptr=edit_play_list;
-		//music_info_ptr=music_info;
-		//lyrics_show_ptr=lyrics_show;
 		submenu=0;
 	}
 	~listscene(){
@@ -189,20 +174,4 @@ public:
 			edit_list->update();
 	}
 	int subscene=0;
-private:
-	//nextbutton* next_button_ptr=nullptr;
-	//playbutton* play_button_ptr=nullptr;
-	//prebutton* pre_button_ptr=nullptr;
-	//addmusicbutton* add_music_button_ptr=nullptr;
-	//currentplaylist* current_playlist_ptr=nullptr;
-	//progressbar* progress_bar_ptr=nullptr;
-	//togglecurrentplaylist* toggle_list_ptr=nullptr;
-	//switcheditlist* switch_edit_list_ptr=nullptr;
-	//editlist* edit_list_ptr=nullptr;
-	//playlistmanager* playlist_manager_ptr=nullptr;
-	//addtobutton* add_to_button_ptr=nullptr;
-	//addlistbutton* add_list_button_ptr=nullptr;
-	//editplaylist* edit_play_list_ptr=nullptr;
-	//musicinfo* music_info_ptr=nullptr;
-	//lyrics* lyrics_show_ptr=nullptr;
 };

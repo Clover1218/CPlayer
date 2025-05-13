@@ -3,12 +3,15 @@
 #include"musicbase.h"
 #include"musicidlist.h"
 #include"playbutton.h"
+#include<utility>
 #include<vector>
 #include<iostream>
 #include<graphics.h>
 extern musicbase database;
 extern int mousex,mousey;
 extern IMAGE delete_img;
+extern IMAGE up_img;
+extern IMAGE down_img;
 class currentplaylist{
 public:
 	currentplaylist(int x,int y,int w,int h,int th,musicidlist* bl){
@@ -17,6 +20,13 @@ public:
 	}
 	void draw(){
 		if(!isshow) return;
+		if(bindlist->data.size()==0){
+			settextstyle(20,0,"Consolas");
+			outtextxy(posx,posy,"默认列表无音乐");
+			outtextxy(posx,posy+texth,"请点击进度条右侧的按钮添加音乐");
+			outtextxy(posx,posy+2*texth,"或点击左上角从歌单导入");
+			outtextxy(posx,posy+3*texth,"点击进度条上方的音乐名可以查看歌词");
+		}
 		settextstyle(20,0,"Consolas");
 		int inity=posy-viewy,i=0;
 		POINT tr[3];
@@ -38,6 +48,8 @@ public:
 			if(i==currentin){
 				setlinecolor(BLACK);
 				putImageAlpha(posx+width-texth,inity,&delete_img);
+				putImageAlpha(posx+width-2*texth,inity,&down_img);
+				putImageAlpha(posx+width-3*texth,inity,&up_img);
 				polygon(tr,3);
 			}
 			inity+=textheight(sn);
@@ -57,7 +69,12 @@ public:
 		}
 	}
 	void del(int cur){
+		if(currentin<0||bindlist->data.size()<=0) return;
 		bindlist->data.erase(bindlist->data.begin()+cur);
+		if(bindlist->data.size()<=0){
+			play_button->play(-1,-1);
+			return;
+		}
 		if(cur==play_button->playcurrentselect){
 			if(cur>=bindlist->data.size()){
 				currentin=currentselect=cur=0;
@@ -74,20 +91,46 @@ public:
 		if(posx<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
 			if(posx+width-texth<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
 				del(currentin);
-			}else{
-				int dy=mousey-posy+viewy;
-				int n=dy/texth;
-				if(n==currentselect){
-					play_button->play(bindlist->data[currentselect].id,currentselect);
-				}else{
-					if(n<bindlist->data.size())
-						currentselect=n;
-				}
-			}
+			}else
+				if(posx+width-2*texth<=mousex&&mousex<=posx+width-texth&&posy<=mousey&&mousey<=posy+height){
+					int downid=(currentin+1)%(int)bindlist->data.size();
+					if(currentin==play_button->playcurrentselect){
+						std::swap(bindlist->data[downid],bindlist->data[currentin]);
+						play_button->playcurrentselect=currentselect=downid;
+					}else
+						if(downid==play_button->playcurrentselect){
+							std::swap(bindlist->data[downid],bindlist->data[currentin]);
+							play_button->playcurrentselect=currentselect=currentin;
+						}else{
+							std::swap(bindlist->data[downid],bindlist->data[currentin]);
+						}
+						
+				}else
+					if(posx+width-3*texth<=mousex&&mousex<=posx+width-2*texth&&posy<=mousey&&mousey<=posy+height){
+						int upid=(currentin-1+(int)bindlist->data.size())%(int)bindlist->data.size();
+						if(currentin==play_button->playcurrentselect){
+							std::swap(bindlist->data[upid],bindlist->data[currentin]);
+							play_button->playcurrentselect=currentselect=upid;
+						}else
+							if(upid==play_button->playcurrentselect){
+								std::swap(bindlist->data[upid],bindlist->data[currentin]);
+								play_button->playcurrentselect=currentselect=currentin;
+							}else{
+								std::swap(bindlist->data[upid],bindlist->data[currentin]);
+							}
+					}else{
+						int dy=mousey-posy+viewy;
+						int n=dy/texth;
+						if(n==currentselect){
+							play_button->play(bindlist->data[currentselect].id,currentselect);
+						}else{
+							if(n<bindlist->data.size())
+								currentselect=n;
+						}
+					}
 			if(currentselect*texth<viewy)
 				viewy=currentselect*texth+texth;
 		}
-
 		return;
 	} 
 	void process_mouse_move(){
@@ -106,12 +149,14 @@ public:
 		bindlist->data.push_back({id,false,name});
 	}
 	void play_next(){
+		if(bindlist->data.size()<=0) return;
 		int cur=currentselect;
 		cur=(cur+1)%(int)bindlist->data.size();
 		currentselect=cur;
 		play_button->play(bindlist->data[currentselect].id,currentselect);
 	}
 	void play_pre(){
+		if(bindlist->data.size()<=0) return;
 		int cur=currentselect;
 		cur=(cur-1+(int)bindlist->data.size())%(int)bindlist->data.size();
 		currentselect=cur;
