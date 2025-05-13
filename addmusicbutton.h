@@ -16,7 +16,7 @@ static void traveldir(std::string p,currentplaylist* bindlist){
 			if(pp.is_directory()==true){
 				traveldir(pp.path().string(),bindlist);
 			}else{
-				if(pp.path().extension()==".mp3"){
+				if(pp.path().extension()==".mp3"||pp.path().extension()==".wav"){
 					bindlist->add(database.add(pp.path().stem().string(),pp.path().string()),pp.path().stem().string());
 				}
 			}
