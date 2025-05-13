@@ -1,9 +1,4 @@
 # CPlayer
-该项目作为南京信息工程大学2024级程序设计实践期末实训作业  
-是一个简单的本地音乐播放器  
-有基本的播放、歌单、歌词等功能  
-歌词请放在对应音乐目录下，并与对应音乐同名  
-（如1.mp3,那要在1.mp3的目录下放置1.lrc,方能正常识别）  
-使用EasyX、Windows API  
-用VS2022 C++17及以上打开编译即可  
-如不成功请把字符集调成多字符  
+A backup of my homework  
+Detailed description is in main.cpp
+Made by VS2022
