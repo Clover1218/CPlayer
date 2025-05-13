@@ -54,6 +54,8 @@ IMAGE rename_img;
 IMAGE mask_img;
 IMAGE volume_img;
 IMAGE play_icon_img;
+IMAGE up_img;
+IMAGE down_img;
 int mousex,mousey;
 musicbase database;
 Scene* list_scene=nullptr;
@@ -94,6 +96,8 @@ void ImportImage(){
 	loadimage(&mask_img,"resource/mask.png",720,480);
 	loadimage(&volume_img,"resource/volume.png",20,20);
 	loadimage(&play_icon_img,"resource/play_icon.png",20,20);
+	loadimage(&up_img,"resource/up.png",20,20);
+	loadimage(&down_img,"resource/down.png",20,20);
 }
 int main(){
 	initgraph(720,480);

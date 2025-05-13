@@ -29,25 +29,30 @@ public:
 
 	}
 	void process_drag(ExMessage& msg){
+		int changetime=(int)((double)(mousex-posx-timelength-gap)/(width-2*timelength-2*gap)*totaltime);
+		if(msg.message==WM_LBUTTONUP){
+			if(isdrag){
+				isdrag=false;
+				char command[100];
+				sprintf_s(command,"seek music to %d",changetime);
+				mciSendString(command,0,0,0);
+				mciSendString("play music",0,0,0);
+			}
+		}else
+			if(msg.message==WM_MOUSEMOVE){
+				if(isdrag&&posx+timelength+gap<=mousex&&mousex<=posx+width-timelength-gap)
+					currenttime=changetime;
+			}
 		if(posx+timelength+gap<=mousex&&mousex<=posx+width-timelength-gap&&posy<=mousey&&mousey<=posy+height){
-			int changetime=(int)((double)(mousex-posx-timelength-gap)/(width-2*timelength-2*gap)*totaltime);
 			if(msg.message==WM_LBUTTONDOWN){
 				if(!isdrag)
 					mciSendString("pause music",0,0,0);
 				currenttime=changetime;
 				isdrag=true;
-			}else
-				if(msg.message==WM_MOUSEMOVE){
-					currenttime=changetime;
-				}else
-					if(msg.message==WM_LBUTTONUP){
-						isdrag=false;
-						char command[100];
-						sprintf_s(command,"seek music to %d",changetime);
-						mciSendString(command,0,0,0);
-						mciSendString("play music",0,0,0);
-					}
+			}
+
 		}
+		
 	}
 	std::string tommss(int t){
 		int mm=t/1000/60,ss=t/1000%60; 

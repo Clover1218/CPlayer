@@ -3,12 +3,15 @@
 #include"musicbase.h"
 #include"musicidlist.h"
 #include"playbutton.h"
+#include<utility>
 #include<vector>
 #include<iostream>
 #include<graphics.h>
 extern musicbase database;
 extern int mousex,mousey;
 extern IMAGE delete_img;
+extern IMAGE up_img;
+extern IMAGE down_img;
 class currentplaylist{
 public:
 	currentplaylist(int x,int y,int w,int h,int th,musicidlist* bl){
@@ -38,6 +41,8 @@ public:
 			if(i==currentin){
 				setlinecolor(BLACK);
 				putImageAlpha(posx+width-texth,inity,&delete_img);
+				putImageAlpha(posx+width-2*texth,inity,&down_img);
+				putImageAlpha(posx+width-3*texth,inity,&up_img);
 				polygon(tr,3);
 			}
 			inity+=textheight(sn);
@@ -74,20 +79,46 @@ public:
 		if(posx<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
 			if(posx+width-texth<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
 				del(currentin);
-			}else{
-				int dy=mousey-posy+viewy;
-				int n=dy/texth;
-				if(n==currentselect){
-					play_button->play(bindlist->data[currentselect].id,currentselect);
-				}else{
-					if(n<bindlist->data.size())
-						currentselect=n;
-				}
-			}
+			}else
+				if(posx+width-2*texth<=mousex&&mousex<=posx+width-texth&&posy<=mousey&&mousey<=posy+height){
+					int downid=(currentin+1)%(int)bindlist->data.size();
+					if(currentin==play_button->playcurrentselect){
+						std::swap(bindlist->data[downid],bindlist->data[currentin]);
+						play_button->playcurrentselect=currentselect=downid;
+					}else
+						if(downid==play_button->playcurrentselect){
+							std::swap(bindlist->data[downid],bindlist->data[currentin]);
+							play_button->playcurrentselect=currentselect=currentin;
+						}else{
+							std::swap(bindlist->data[downid],bindlist->data[currentin]);
+						}
+						
+				}else
+					if(posx+width-3*texth<=mousex&&mousex<=posx+width-2*texth&&posy<=mousey&&mousey<=posy+height){
+						int upid=(currentin-1+(int)bindlist->data.size())%(int)bindlist->data.size();
+						if(currentin==play_button->playcurrentselect){
+							std::swap(bindlist->data[upid],bindlist->data[currentin]);
+							play_button->playcurrentselect=currentselect=upid;
+						}else
+							if(upid==play_button->playcurrentselect){
+								std::swap(bindlist->data[upid],bindlist->data[currentin]);
+								play_button->playcurrentselect=currentselect=currentin;
+							}else{
+								std::swap(bindlist->data[upid],bindlist->data[currentin]);
+							}
+					}else{
+						int dy=mousey-posy+viewy;
+						int n=dy/texth;
+						if(n==currentselect){
+							play_button->play(bindlist->data[currentselect].id,currentselect);
+						}else{
+							if(n<bindlist->data.size())
+								currentselect=n;
+						}
+					}
 			if(currentselect*texth<viewy)
 				viewy=currentselect*texth+texth;
 		}
-
 		return;
 	} 
 	void process_mouse_move(){
