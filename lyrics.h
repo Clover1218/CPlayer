@@ -30,14 +30,14 @@ public:
 		texth=textheight("L");
 	}
 	void draw(){
+        settextstyle(texth,0,_T("Consolas"));
         if(state==false){
-            outtextxy(posx-(textwidth("当前无歌词"))/2,posy,"当前无歌词");
+            outtextxy(posx-(textwidth("当前无歌词,请将与音乐同名的.lrc文件放至与音乐相同的目录下以便识别"))/2,posy,"当前无歌词,请将与音乐同名的.lrc文件放至与音乐相同的目录下以便识别");
             return;
         }		
         char pos[100];
         mciSendString("status music position",pos,100,0);
 		int nowpos=findpos(atoi(pos));
-        settextstyle(texth,0,_T("Consolas"));
         if(nowpos-1>=0)
             outtextxy(posx-(textwidth(data[nowpos-1].second.c_str()))/2,posy,data[nowpos-1].second.c_str());
         settextstyle(texth*3/2,0,_T("Consolas"));

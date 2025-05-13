@@ -17,9 +17,12 @@ public:
 		texth=th;		
 	}
 	void draw(){
-		if(0>play_button->playcurrentselect||play_button->playcurrentselect>=bindlist->bindlist->data.size())
-			return;
 		settextstyle(texth,0,"Consolas");
+		if(0>play_button->playcurrentselect||play_button->playcurrentselect>=bindlist->bindlist->data.size()){
+			int tw=textwidth("当前无播放");
+			outtextxy(posx+width/2-tw/2,posy,"当前无播放");
+			return;
+		}
 		int tw=textwidth(bindlist->bindlist->data[play_button->playcurrentselect].name.c_str());
 		outtextxy(posx+width/2-tw/2,posy+gap,bindlist->bindlist->data[play_button->playcurrentselect].name.c_str());
 	}
