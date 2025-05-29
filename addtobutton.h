@@ -13,21 +13,21 @@ extern int mousex;
 extern int mousey;
 extern musicbase database;
 extern playlistmanager* playlist_manager;
-static void traveldir(std::string p,musicidlist* bindlist){
-	if(fs::exists(p)){
-		for(auto &pp:fs::directory_iterator(p)){
-			std::cout<<pp.path();
-			if(pp.is_directory()==true){
-				traveldir(pp.path().string(),bindlist);
-			}else{
-				if(pp.path().extension()==".mp3"||pp.path().extension()==".wav"){
-					bindlist->add(database.add(pp.path().stem().string(),pp.path().string()),pp.path().stem().string());
-				}
-			}
-		}
-	}
-
-}
+//static void traveldir(std::string p,musicidlist* bindlist){
+//	if(fs::exists(p)){
+//		for(auto &pp:fs::directory_iterator(p)){
+//			std::cout<<pp.path();
+//			if(pp.is_directory()==true){
+//				traveldir(pp.path().string(),bindlist);
+//			}else{
+//				if(pp.path().extension()==".mp3"||pp.path().extension()==".wav"){
+//					bindlist->add(database.add(pp.path().stem().string(),pp.path().string()),pp.path().stem().string());
+//				}
+//			}
+//		}
+//	}
+//
+//}
 class addtobutton{
 public:
 	addtobutton(int xx,int yy,IMAGE* img){
@@ -55,7 +55,7 @@ public:
 			InputBox(a,200,_T("请输入要导入当前选择歌单的文件夹路径"),_T("CPlayer"),_T("Write Something..."),0,0,false);
 			if(a[0]!='#'){
 				std::string pa=a;
-				traveldir(pa,bindlist);
+				//traveldir(pa,bindlist);
 				database.print();
 			}
 		}

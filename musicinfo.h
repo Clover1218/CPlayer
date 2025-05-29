@@ -40,7 +40,7 @@ public:
 		}*/
 		//int tw=textwidth(bindlist->bindlist->data[play_button->playcurrentselect].name.c_str());
 		RECT r;
-		r.left=posx;r.top=posy+gap;r.right=getwidth();r.bottom=posy+texth;
+		r.left=posx;r.top=posy+gap;r.right=getwidth();r.bottom=posy+texth*3;
 		drawtext(bindlist->bindlist->data[play_button->playcurrentselect].name.c_str(),&r,DT_WORD_ELLIPSIS);
 	}
 	void process_mouse_move(){

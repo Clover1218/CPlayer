@@ -50,7 +50,10 @@ public:
 			tr[1]={posx+texth-gap,inity+texth/2};
 			tr[2]={posx+gap,inity+texth-gap};
 			const char* sn=e.name.c_str();
-			outtextxy(posx+texth,inity,sn);
+			//outtextxy(posx+texth,inity,sn);
+			RECT r;
+			r.left=posx+texth;r.top=inity;r.right=posx+width-6*texth;r.bottom=inity+texth;
+			drawtext(sn,&r,DT_WORD_ELLIPSIS);
 			settextcolor(BLACK);
 			if(i==currentselect){
 				setlinecolor(BLACK);

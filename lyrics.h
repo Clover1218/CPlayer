@@ -17,24 +17,49 @@ class lyrics{
 public:
 	lyrics(int x,int y,int w,int h,int th){
 		posx=x;posy=y;width=w;height=h;viewy=0;texth=th;
-		texth=textheight("L");
+		texth=th;
 	}
 	void draw(){
+        //return;
         settextstyle(texth,0,_T("Consolas"));
         if(state==false){
             outtextxy(posx-(textwidth("当前无歌词,请将与音乐同名的.lrc文件放至与音乐相同的目录下以便识别"))/2,posy,"当前无歌词,请将与音乐同名的.lrc文件放至与音乐相同的目录下以便识别");
             return;
         }		
         char pos[100];
-        mciSendString("status music position",pos,100,0);
-		int nowpos=findpos(atoi(pos));
-        if(nowpos-1>=0)
+        mciSendString("status music position",pos,100,0);//2 2 4 4 5 5 5 7 7
+        int key=atoi(pos),nowpos=0,nowms=0;
+        for(int i=0;i<data.size();i++){
+            if(key<=data[i].first){
+                nowpos=i;
+                break;
+            }
+            if(i==data.size()-1){
+                nowpos=data.size();
+            }
+        }
+        if(nowpos==0)   nowpos++;
+        nowpos--;
+        nowms=data[nowpos].first;
+        while(nowpos>0&&data[nowpos-1].first==nowms)  nowpos--;
+        int inity=posy+height/2-nowpos*texth-2*texth;
+        for(int i=0;i<data.size();i++){
+            //if(data[i].first<=key)
+            //    continue;
+            settextcolor(BLACK);
+            if(nowms==data[i].first){
+                settextcolor(RED);
+            }
+            outtextxy(posx-(textwidth(data[i].second.c_str()))/2,inity,data[i].second.c_str());
+            inity+=texth;
+        }
+        /*if(nowpos-1>=0)
             outtextxy(posx-(textwidth(data[nowpos-1].second.c_str()))/2,posy,data[nowpos-1].second.c_str());
         settextstyle(texth*3/2,0,_T("Consolas"));
         outtextxy(posx-(textwidth(data[nowpos].second.c_str()))/2,posy+texth*3/2,data[nowpos].second.c_str());
         settextstyle(texth,0,_T("Consolas"));
         if(nowpos+1<(int)data.size())
-            outtextxy(posx-(textwidth(data[nowpos+1].second.c_str()))/2,posy+7*texth/2,data[nowpos+1].second.c_str());
+            outtextxy(posx-(textwidth(data[nowpos+1].second.c_str()))/2,posy+7*texth/2,data[nowpos+1].second.c_str());*/
 	}
 	void process_wheel(int wheel){
 	}

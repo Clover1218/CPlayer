@@ -10,6 +10,9 @@
 extern Scene* list_scene;
 extern int mousex,mousey;
 extern IMAGE cd_img;
+extern IMAGE mask2_img;
+extern IMAGE lyrics_up_img;
+extern IMAGE lyrics_down_img;
 extern musicbase database;
 class musiccover{
 public:
@@ -32,6 +35,13 @@ public:
 			IMAGE xx;
 			loadimage(&xx,p.c_str(),100,100);
 			putimage(posx,posy,&xx);
+		}
+		if(posx<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
+			drawAlpha(&mask2_img,posx,posy);
+			if(((list_scene->submenu>>1)&1)==0)
+				drawAlpha(&lyrics_up_img,posx,posy);
+			else
+				drawAlpha(&lyrics_down_img,posx,posy);
 		}
 	}
 	void process_mouse_move(){

@@ -142,13 +142,16 @@ public:
 	}
 	void draw(){
 		if(((submenu>>1)&1)==1){
-			//putimage(0,0,&background_img);
+			//putimage(0,0,&background_img);			
+			lyrics_show->draw();
+			setfillcolor(0xFFFFFF);
+			solidrectangle(0,520,960,720);
 			next_button->draw();
 			play_button->draw();
 			pre_button->draw();
 			progress_bar->draw();
 			music_info->draw();
-			lyrics_show->draw();
+
 			volume_bar->draw();
 			music_cover->draw();
 		}else

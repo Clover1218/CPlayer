@@ -22,7 +22,6 @@ static void traveldir(std::string p,currentplaylist* bindlist){
 			}
 		}
 	}
-
 }
 class addmusicbutton{
 public:
@@ -32,9 +31,9 @@ public:
 		dx=img->getwidth();dy=img->getheight();
 		image=img;
 		bindlist=cl;
-		//traveldir("E://ScatteredFile//music//¸èÇúÏÂÔØ//Music",bindlist);
+		traveldir("E://ScatteredFile//music//¸èÇúÏÂÔØ//Music",bindlist);
 		//traveldir("D:\\KwDownload\\song",bindlist);
-		traveldir("E:\\ScatteredFile\\music",bindlist);
+		//traveldir("E:\\ScatteredFile\\music",bindlist);
 	}
 	bool checkin(){
 		if(x<=mousex&&mousex<=x+dx&&y<=mousey&&mousey<=y+dy){

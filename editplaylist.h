@@ -1,5 +1,7 @@
 #pragma once
 #include<graphics.h>
+#include<filesystem>
+#include<string>
 #include"playlistmanager.h"
 #include"musicidlist.h"
 #include"util.h"
@@ -8,7 +10,23 @@ extern playlistmanager* playlist_manager;
 extern IMAGE add_img;
 extern IMAGE delete_img;
 extern IMAGE rename_img;
+extern IMAGE export_img;
 extern int mousex,mousey;
+namespace fs=std::filesystem;
+static void traveldir(std::string p,musicidlist* bindlist){
+	if(fs::exists(p)){
+		for(auto &pp:fs::directory_iterator(p)){
+			std::cout<<pp.path();
+			if(pp.is_directory()==true){
+				traveldir(pp.path().string(),bindlist);
+			}else{
+				if(pp.path().extension()==".mp3"||pp.path().extension()==".wav"){
+					bindlist->add(database.add(pp.path().stem().string(),pp.path().string()),pp.path().stem().string());
+				}
+			}
+		}
+	}
+}
 class editplaylist{
 public:
 	editplaylist(int x,int y,int w,int h,int th){
@@ -22,6 +40,7 @@ public:
 		putImageAlpha(posx+width-texth,posy,&delete_img);
 		putImageAlpha(posx+width-2*texth,posy,&add_img);
 		putImageAlpha(posx+width-3*texth,posy,&rename_img);
+		putImageAlpha(posx+width-4*texth,posy,&export_img);
 	}
 	void process_click(){
 		if(posx<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
@@ -61,7 +80,17 @@ public:
 							playlist_manager->data[playlist_manager->currentselect]->listname=pa;
 
 						}
-					}
+					}else
+						if(posx+width-4*texth<=mousex&&mousex<=posx+width-texth*3&&posy<=mousey&&mousey<=posy+height){
+							musicidlist* bindlist=playlist_manager->data[playlist_manager->currentselect];
+							CHAR a[300]={'#'};
+							InputBox(a,200,_T("请输入要导入当前选择歌单的文件夹路径"),_T("CPlayer"),_T("Write Something..."),0,0,false);
+							if(a[0]!='#'){
+								std::string pa=a;
+								traveldir(pa,bindlist);
+								database.print();
+							}
+						}
 		}
 	}
 	int posx;
