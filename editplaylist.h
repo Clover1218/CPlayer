@@ -13,7 +13,7 @@ class editplaylist{
 public:
 	editplaylist(int x,int y,int w,int h,int th){
 		posx=x;posy=y;width=w;height=h;
-		texth=textheight("L");		
+		texth=th;		
 	}
 	void draw(){
 		if(!isshow) return;

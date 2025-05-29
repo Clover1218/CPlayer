@@ -101,17 +101,20 @@
     <ClInclude Include="selectwindow.h">
       <Filter>头文件\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="editplaylist.h">
-      <Filter>头文件\Scene\listscene\Two</Filter>
-    </ClInclude>
     <ClInclude Include="musicinfo.h">
       <Filter>头文件\Scene\listscene</Filter>
     </ClInclude>
-    <ClInclude Include="lyrics.h">
-      <Filter>头文件\Scene\listscene\Three</Filter>
-    </ClInclude>
     <ClInclude Include="volumebar.h">
       <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="musiccover.h">
+      <Filter>头文件\Scene\listscene</Filter>
+    </ClInclude>
+    <ClInclude Include="editplaylist.h">
+      <Filter>头文件\Scene\listscene\Two</Filter>
+    </ClInclude>
+    <ClInclude Include="lyrics.h">
+      <Filter>头文件\Scene\listscene\Three</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

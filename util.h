@@ -62,3 +62,13 @@ static void putImageAlpha(int x, int y, IMAGE* img) {
 		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255, AC_SRC_ALPHA });
 	
 }
+static std::string utf8ToGbk(const std::string& utf8Str) {
+    int wideLen=MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,nullptr,0);
+    std::wstring wideStr(wideLen, 0);
+    MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,&wideStr[0],wideLen);
+    int gbkLen=WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,nullptr,0,nullptr,nullptr);
+    std::string gbkStr(gbkLen, 0);
+    WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,&gbkStr[0],gbkLen,nullptr,nullptr);
+    gbkStr.pop_back();
+    return gbkStr;
+}

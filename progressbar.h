@@ -3,9 +3,9 @@
 extern int mousex,mousey;
 class progressbar{
 public:
-	progressbar(int px,int py,int w,int h,int g){
-		posx=px;posy=py;width=w;height=h;gap=g;
-		settextstyle(20,0,_T("Consolas"));
+	progressbar(int px,int py,int w,int h,int g,int th,int b){
+		posx=px;posy=py;width=w;height=h;gap=g;texth=th;bold=b;
+		settextstyle(texth,0,_T("Consolas"));
 		timelength=textwidth("00:00");
 	}
 	void draw(){
@@ -21,12 +21,13 @@ public:
 		outtextxy(posx,posy,tommss(currenttime).c_str());
 
 		outtextxy(posx+width-timelength,posy,tommss(totaltime).c_str());
-		setlinecolor(BLACK);
-		line(posx+timelength+gap,posy+height/2,posx+width-timelength-gap,posy+height/2);
-		setlinecolor(WHITE);
-		line(posx+timelength+gap,posy+height/2,posx+timelength+gap+(int)((double)(width-2*timelength-2*gap)/totaltime*currenttime),posy+height/2);
+		setfillcolor(LIGHTGRAY);
+		solidrectangle(posx+timelength+gap,posy+height/2-bold/2,posx+width-timelength-gap,posy+height/2+bold/2);
+		setfillcolor(BLACK);
+		if(totaltime!=0)
+			solidrectangle(posx+timelength+gap,posy+height/2-bold/2,posx+timelength+gap+(int)((double)(width-2*timelength-2*gap)/totaltime*currenttime),posy+height/2+bold/2);
 		
-
+		
 	}
 	void process_drag(ExMessage& msg){
 		int changetime=(int)((double)(mousex-posx-timelength-gap)/(width-2*timelength-2*gap)*totaltime);
@@ -73,5 +74,7 @@ private:
 	int currenttime=0;
 	int totaltime=0;
 	int gap;
+	int texth;
+	int bold;
 	bool isdrag=false;
 };

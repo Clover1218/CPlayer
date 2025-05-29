@@ -11,22 +11,17 @@ extern Scene* list_scene;
 extern int mousex,mousey;
 extern IMAGE cd_img;
 extern musicbase database;
-class musicinfo{
+class musiccover{
 public:
-	musicinfo(int x,int y,int w,int h,int th,playbutton* pb,currentplaylist* bl){
+	musiccover(int x,int y,int w,int h,playbutton* pb,currentplaylist* bl){
 		posx=x;posy=y;width=w;height=h;
 		play_button=pb;
 		bindlist=bl;
-		texth=th;		
 	}
 	void draw(){
-		settextstyle(texth,0,"Consolas");
-		if(0>play_button->playcurrentselect||play_button->playcurrentselect>=bindlist->bindlist->data.size()){
-			int tw=textwidth("当前无播放");
-			outtextxy(posx+width/2-tw/2,posy,"当前无播放");
+		if(play_button->playcurid==-1)
 			return;
-		}
-		/*std::string p=database.base[play_button->playcurid].path;
+		std::string p=database.base[play_button->playcurid].path;
 		size_t l=p.length();
         p[l-1]='g';p[l-2]='p';p[l-3]='j';
 		IMAGE t;
@@ -37,17 +32,14 @@ public:
 			IMAGE xx;
 			loadimage(&xx,p.c_str(),100,100);
 			putimage(posx,posy,&xx);
-		}*/
-		//int tw=textwidth(bindlist->bindlist->data[play_button->playcurrentselect].name.c_str());
-		RECT r;
-		r.left=posx;r.top=posy+gap;r.right=getwidth();r.bottom=posy+texth;
-		drawtext(bindlist->bindlist->data[play_button->playcurrentselect].name.c_str(),&r,DT_WORD_ELLIPSIS);
+		}
 	}
 	void process_mouse_move(){
 
 	}
 	void process_click(){
 		if(posx<=mousex&&mousex<=posx+width&&posy<=mousey&&mousey<=posy+height){
+			list_scene->changesubmenu(list_scene->submenu^2);
 		}
 	}
 	void process_wheel(int wheel){

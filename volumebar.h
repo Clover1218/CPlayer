@@ -3,8 +3,8 @@
 extern int mousex,mousey;
 class volumebar{
 public:
-	volumebar(int px,int py,int w,int h,int g,IMAGE* i){
-		posx=px;posy=py;width=w;height=h;gap=g;
+	volumebar(int px,int py,int w,int h,int g,int b,IMAGE* i){
+		posx=px;posy=py;width=w;height=h;gap=g;bold=b;
 		settextstyle(20,0,_T("Consolas"));
 		image=i;
 		iconlength=30;
@@ -13,13 +13,17 @@ public:
 		char pos[100]={'#'};
 		settextstyle(20,0,_T("Consolas"));
 		putImageAlpha(posx,posy,image);
-		setlinecolor(BLACK);
-		line(posx+iconlength+gap,posy+height/2,posx+width,posy+height/2);
-		setlinecolor(WHITE);
-		line(posx+iconlength+gap,posy+height/2,posx+iconlength+gap+current*(width-gap-iconlength)/total,posy+height/2);
+		setfillcolor(LIGHTGRAY);
+		solidrectangle(posx+iconlength+gap,posy+height/2-bold/2,posx+width,posy+height/2+bold/2);
+		setfillcolor(BLACK);
+		solidrectangle(posx+iconlength+gap,posy+height/2-bold/2,posx+iconlength+gap+current*(width-gap-iconlength)/total,posy+height/2+bold/2);
 	}
 	void process_drag(ExMessage& msg){
 		int changevolume=(mousex-posx-iconlength-gap)*total/(width-iconlength-gap);
+		if(changevolume>total)
+			changevolume=total;
+		if(changevolume<0)
+			changevolume=0;
 		if(msg.message==WM_LBUTTONUP){
 			if(isdrag){
 				isdrag=false;
@@ -57,6 +61,7 @@ private:
 	int iconlength;
 	int total=1000;
 	int gap;
+	int bold;
 	bool isdrag=false;
 	IMAGE* image;
 };

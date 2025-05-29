@@ -9,7 +9,7 @@ public:
 		data.push_back(new musicidlist("”¢Œƒ∏Ë",2));
 		data.push_back(new musicidlist("»’Œƒ∏Ë",3));
 		data.push_back(new musicidlist("¥ø“Ù¿÷",4));
-		texth=textheight("L");
+		texth=th;
 		posx=x;posy=y;width=w;height=h;viewy=0;
 	}
 	void add(std::string name){
@@ -18,7 +18,7 @@ public:
 	
 	void draw(){
 		if(!isshow) return;
-		settextstyle(20,0,"Consolas");
+		settextstyle(texth,0,"Consolas");
 		int inity=posy-viewy,i=0;
 		POINT tr[3];
 		for(auto e:data){

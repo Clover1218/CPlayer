@@ -5,6 +5,7 @@
 #include<string>
 #include"playbutton.h"
 #include"currentplaylist.h"
+#include"util.h"
 extern musicbase database;
 static int stringtoint(int l,int r,std::string& s){
     int base=0;
@@ -12,17 +13,6 @@ static int stringtoint(int l,int r,std::string& s){
         base=base*10+s[i]-'0';
     return base;
 }
-static std::string utf8ToGbk(const std::string& utf8Str) {
-    int wideLen=MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,nullptr,0);
-    std::wstring wideStr(wideLen, 0);
-    MultiByteToWideChar(CP_UTF8,0,utf8Str.c_str(),-1,&wideStr[0],wideLen);
-    int gbkLen=WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,nullptr,0,nullptr,nullptr);
-    std::string gbkStr(gbkLen, 0);
-    WideCharToMultiByte(CP_ACP,0,wideStr.c_str(),-1,&gbkStr[0],gbkLen,nullptr,nullptr);
-    gbkStr.pop_back();
-    return gbkStr;
-}
-
 class lyrics{
 public:
 	lyrics(int x,int y,int w,int h,int th){

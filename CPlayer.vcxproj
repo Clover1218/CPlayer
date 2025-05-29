@@ -143,6 +143,7 @@
     <ClInclude Include="music.h" />
     <ClInclude Include="musicbase.h" />
     <ClInclude Include="currentplaylist.h" />
+    <ClInclude Include="musiccover.h" />
     <ClInclude Include="musicidlist.h" />
     <ClInclude Include="musicinfo.h" />
     <ClInclude Include="nextbutton.h" />

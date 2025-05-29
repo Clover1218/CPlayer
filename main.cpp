@@ -33,11 +33,11 @@
 #include"editplaylist.h"
 #include"musicinfo.h"
 #include"volumebar.h"
+#include"musiccover.h"
 
 #pragma comment(lib,"winmm.lib")
 IMAGE background_img;
 IMAGE next_button_img;
-IMAGE next_img;
 IMAGE pre_img;
 IMAGE play_img;
 IMAGE pause_img;
@@ -54,6 +54,7 @@ IMAGE volume_img;
 IMAGE play_icon_img;
 IMAGE up_img;
 IMAGE down_img;
+IMAGE cd_img;
 int mousex,mousey;
 musicbase database;
 Scene* list_scene=nullptr;
@@ -74,52 +75,56 @@ editplaylist* edit_play_list;
 musicinfo* music_info;
 lyrics* lyrics_show;
 volumebar* volume_bar;
+musiccover* music_cover;
 void ImportImage(){
 	loadimage(&background_img,"resource/background.jpg");
-	loadimage(&next_button_img,"resource/nextbutton.png",100,100);
-	loadimage(&next_img,"resource/next.png",50,50);
-	loadimage(&pre_img,"resource/pre.png",50,50);
-	loadimage(&play_img,"resource/play.png",50,50);
-	loadimage(&pause_img,"resource/pause.png",50,50);
+	loadimage(&next_button_img,"resource/next.png",60,60);
+	loadimage(&pre_img,"resource/pre.png",60,60);
+	loadimage(&play_img,"resource/play.png",60,60);
+	loadimage(&pause_img,"resource/pause.png",60,60);
 	loadimage(&add_music_img,"resource/add_music.png",50,50);
 	loadimage(&toggle_list_img,"resource/toggle_list.png",50,50);
 	loadimage(&music_edit_img,"resource/music_edit.png",50,50);
 	loadimage(&add_to_button_img,"resource/add_to.png",30,30);
 	loadimage(&add_list_button_img,"resource/add_list.png",30,30);
-	loadimage(&add_img,"resource/add.png",20,20);
-	loadimage(&delete_img,"resource/delete.png",20,20);
-	loadimage(&rename_img,"resource/rename.png",20,20);
-	loadimage(&mask_img,"resource/mask.png",720,480);
-	loadimage(&volume_img,"resource/volume.png",20,20);
-	loadimage(&play_icon_img,"resource/play_icon.png",20,20);
-	loadimage(&up_img,"resource/up.png",20,20);
-	loadimage(&down_img,"resource/down.png",20,20);
+	loadimage(&add_img,"resource/add.png",30,30);
+	loadimage(&delete_img,"resource/delete.png",30,30);
+	loadimage(&rename_img,"resource/rename.png",30,30);
+	loadimage(&mask_img,"resource/mask.png",960,640);
+	loadimage(&volume_img,"resource/volume.png",25,25);
+	loadimage(&play_icon_img,"resource/play_icon.png",30,30);
+	loadimage(&up_img,"resource/up.png",30,30);
+	loadimage(&down_img,"resource/down.png",30,30);
+	loadimage(&cd_img,"resource/cd.png",100,100);
 }
 int main(){
-	initgraph(720,480);
+	initgraph(960,640);//640/4=160
+	setbkcolor(0xffffff);
+	cleardevice();
 	BeginBatchDraw();
 	ImportImage();
 	settextcolor(BLACK);
 	settextstyle(20,0,_T("Consolas"),0,0,0,false,false,false,DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,ANTIALIASED_QUALITY,DEFAULT_PITCH);
 	setbkmode(TRANSPARENT);
 	ExMessage msg;
-	playlist_manager=new playlistmanager(0,100,200,300,20);
+	playlist_manager=new playlistmanager(0,100,200,300,30);
 	lyrics_show=new lyrics(360,175,200,300,20);
-	play_button=new playbutton(100,400,&play_img,&pause_img,lyrics_show);
-	current_playlist=new currentplaylist(200,50,300,350,20,playlist_manager->data[0]);
+	play_button=new playbutton(100,560,&play_img,&pause_img,lyrics_show);
+	current_playlist=new currentplaylist(200,100,760,420-30,30,15,playlist_manager->data[0]);
 	current_playlist->play_button=play_button;
-	next_button=new nextbutton(180,400,&next_img,current_playlist);
-	pre_button=new prebutton(20,400,&pre_img,current_playlist);
+	next_button=new nextbutton(180,560,&next_button_img,current_playlist);
+	pre_button=new prebutton(20,560,&pre_img,current_playlist);
 	add_music_button=new addmusicbutton(500,400,&add_music_img,current_playlist);
-	progress_bar=new progressbar(250,450,200,20,10);
+	progress_bar=new progressbar(380,580,200,20,10,20,5);
 	toggle_list=new togglecurrentplaylist(600,400,&toggle_list_img,current_playlist);
 	switch_edit_list=new switcheditlist(0,0,&music_edit_img);
 	add_to_button=new addtobutton(0,60,&add_to_button_img);
-	edit_list=new editlist(150,50,300,350,20,playlist_manager->data[0]);
+	edit_list=new editlist(200,100,760,420-30,30,15,playlist_manager->data[0]);
 	add_list_button=new addlistbutton(30,60,&add_list_button_img);
-	edit_play_list=new editplaylist(150,0,300,50,20);
-	music_info=new musicinfo(250,400,200,50,30,play_button,current_playlist);
-	volume_bar=new volumebar(50,450,155,20,5,&volume_img);
+	edit_play_list=new editplaylist(200,0,400,50,30);
+	music_info=new musicinfo(380,520,200,50,30,play_button,current_playlist);
+	volume_bar=new volumebar(50,520,155,25,5,10,&volume_img);
+	music_cover=new musiccover(250,520,100,100,play_button,current_playlist);
 	list_scene=new listscene();
 	scene_manager.setbynumber(1);
 	while(true){

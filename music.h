@@ -11,6 +11,7 @@ public:
 	~music()=default;
 	int id=-1;
 	std::string name;
+	std::string artistname;
 	std::string path;
 	bool status=false;
 };
